@@ -1,7 +1,9 @@
 package me.diego.botzinho;
 
 import me.diego.botzinho.commands.Ping;
+import me.diego.botzinho.scripts.CommandReader;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -75,10 +77,10 @@ public class Teste {
         System.out.println(msg);
          */
 
-        List<String> strs = List.of("hamood", "test", "Ping", "!habibi");
-
-        String str = strs.get(3);
-        String path = "me.diego.botzinho.commands.";
+//        List<String> strs = List.of("hamood", "test", "Ping", "!habibi");
+//
+//        String str = strs.get(3);
+//        String path = "me.diego.botzinho.commands.";
 
 //        Class cls = Class.forName(path + s);
 
@@ -88,7 +90,18 @@ public class Teste {
 //        String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
 //        System.out.println(cap);
 
-        System.out.println(formatString(str));
+//        System.out.println(formatString(str));
+
+
+        ClassLoader classLoader = CommandReader.class.getClassLoader();
+        File file = new File(Objects.requireNonNull(classLoader.getResource("config.json")).getFile());
+
+        Object obj = parser.parse(new FileReader(file));
+        JSONObject jsonFile = (JSONObject) obj;
+        Character configsJson = (Character) jsonFile.get("prefix");
+
+        System.out.println(configsJson);
+
     }
 
     private static String formatString(String string) {

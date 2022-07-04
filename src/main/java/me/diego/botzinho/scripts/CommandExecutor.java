@@ -9,15 +9,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 public class CommandExecutor extends ListenerAdapter {
-    //TODO create a commandReader that get all commands inside a config.yml, and loads when application start in string array and verify if commands exists
+    private final Set<String> commands = Botzinho.getCommands();
+    private final String prefix = Botzinho.getPrefix();
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String prefix = "!";
         String[] args = event.getMessage().getContentRaw().split(" ");
 
         String path = "me.diego.botzinho.commands.";
-        Set<String> commands = Botzinho.getCommands();
 
         String commandToFind = args[0].replace(prefix, "");
 

@@ -17,6 +17,7 @@ public class Botzinho {
 
     public static JDA jda;
     private static final Set<String> commands = new HashSet<>();
+    private static String prefix;
 
     public static void main(String[] args) throws LoginException, IOException, ParseException {
         Dotenv dotenv = null;
@@ -31,10 +32,15 @@ public class Botzinho {
     }
 
     public static void onStart() throws IOException, ParseException {
-        commands.addAll(CommandReader.readJson());
+        commands.addAll(CommandReader.readCommands());
+        prefix = CommandReader.readConfig("prefix");
     }
 
     public static Set<String> getCommands() {
         return commands;
+    }
+
+    public static String getPrefix() {
+        return prefix;
     }
 }
