@@ -1,8 +1,8 @@
 package me.diego.botzinho;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import me.diego.botzinho.scripts.CommandExecutor;
 import me.diego.botzinho.debug.Guilds;
+import me.diego.botzinho.scripts.CommandExecutor;
 import me.diego.botzinho.scripts.CommandReader;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -11,7 +11,9 @@ import org.json.simple.parser.ParseException;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Botzinho {
 
