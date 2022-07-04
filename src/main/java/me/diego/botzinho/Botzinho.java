@@ -37,7 +37,7 @@ public class Botzinho {
         commands.addAll(CommandReader.readCommands());
         prefix = CommandReader.readConfig("prefix");
     }
-
+//
     public static Set<String> getCommands() {
         return commands;
     }
