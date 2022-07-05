@@ -1,7 +1,6 @@
 package me.diego.botzinho.scripts;
 
 import me.diego.botzinho.Botzinho;
-import me.diego.botzinho.config.Prefix;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +12,7 @@ import java.util.Set;
 
 public class CommandExecutor extends ListenerAdapter {
     private final HashMap<String, Set<String>> commands = Botzinho.getCommands();
-    private final String prefix = Botzinho.getPrefix().toString();
+    private final String prefix = Botzinho.getPrefix();
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
@@ -22,11 +21,6 @@ public class CommandExecutor extends ListenerAdapter {
         String path = "me.diego.botzinho.commands.";
 
         String commandToFind = args[0].replace(prefix, "");
-
-        System.out.println(prefix);
-        System.out.println(commandToFind);
-        System.out.println(commands);
-        System.out.println(commands.values().stream().anyMatch(list -> list.contains(commandToFind)));
 
         if (commands.values().stream().anyMatch(list -> list.contains(commandToFind))) {
             try {
@@ -39,10 +33,6 @@ public class CommandExecutor extends ListenerAdapter {
             }
         }
     }
-
-//    private String formatString(String string) {
-//        return string.substring(0, 1).toUpperCase() + string.substring(1);
-//    }
 
     public static String getKey(HashMap<String, Set<String>> commands, String str) {
         for (Map.Entry<String, Set<String>> entry : commands.entrySet()) {

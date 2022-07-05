@@ -8,8 +8,12 @@ import java.io.IOException;
 public class Prefix {
     private String prefix;
 
-    public Prefix() throws IOException, ParseException {
-        this.prefix = CommandReader.readConfig("prefix");
+    public Prefix() {
+        try {
+            this.prefix = CommandReader.readConfig("prefix");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getPrefix() {
@@ -18,12 +22,5 @@ public class Prefix {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
-    }
-
-    @Override
-    public String toString() {
-        return "Prefix{" +
-                "prefix='" + prefix + '\'' +
-                '}';
     }
 }

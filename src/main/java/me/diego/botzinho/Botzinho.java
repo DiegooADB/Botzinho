@@ -17,18 +17,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Botzinho {
-
+    //TODO create command description when message send is !example
     public static JDA jda;
     private static final HashMap<String, Set<String>> commands = new HashMap<>();
-    private static Prefix prefix;
-
-    static {
-        try {
-            prefix = new Prefix();
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final Prefix prefix = new Prefix();
 
     public static void main(String[] args) throws LoginException, IOException, ParseException {
         Dotenv dotenv = null;
