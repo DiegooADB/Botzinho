@@ -1,12 +1,13 @@
 {
   "prefix": "!",
   "commands": {
-    "ping": {
+    "Ping": {
       "aliases": [
-        "ping"
+        "ping",
+        "ping2"
       ]
     },
-    "test": {
+    "Test": {
       "aliases": [
         "teste",
         "hamood"
