@@ -49,6 +49,10 @@
             <artifactId>json</artifactId>
             <version>20220320</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
+        </dependency>
     </dependencies>
 </project>
