@@ -1,6 +1,5 @@
 package me.diego.botzinho.commands;
 
-import me.diego.botzinho.Botzinho;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 
