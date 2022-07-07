@@ -1,17 +1,3 @@
 {
-  "prefix": "!",
-  "commands": {
-    "Ping": {
-      "aliases": [
-        "ping",
-        "ping2"
-      ]
-    },
-    "Test": {
-      "aliases": [
-        "teste",
-        "hamood"
-      ]
-    }
-  }
+  "prefix": "!"
 }

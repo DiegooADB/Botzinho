@@ -1,4 +1,4 @@
-package me.diego.botzinho.no_commands;
+package me.diego.botzinho.events;
 
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
