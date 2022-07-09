@@ -1,3 +1,5 @@
 {
-  "prefix": "!"
+  "prefix": "!",
+  "debug": true,
+  "devServerId": 557338801169629225
 }

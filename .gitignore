@@ -6,6 +6,6 @@ target/
 *.ipr
 *.iws
 .env
-example.log
+botzinho-discord.log
 
 src/main/java/me/diego/botzinho/Teste.java

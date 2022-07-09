@@ -1,8 +1,9 @@
 package me.diego.botzinho;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import me.diego.botzinho.commands.handler.EventHandler;
+import me.diego.botzinho.config.ConfigManager;
 import me.diego.botzinho.debug.Guilds;
-import me.diego.botzinho.handler.CommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.json.simple.parser.ParseException;
@@ -27,8 +28,9 @@ public class Botzinho {
     }
 
     private static void onStart() {
-        CommandHandler.getInstance().init();
-        jda.addEventListener(CommandHandler.getInstance());
+        EventHandler.getInstance().init();
+        jda.addEventListener(EventHandler.getInstance());
+        ConfigManager.getInstance();
         Guilds.showGuilds();
     }
 

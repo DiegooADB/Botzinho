@@ -1,56 +1,34 @@
-package me.diego.botzinho.handler;
+package me.diego.botzinho.commands.handler;
 
 import me.diego.botzinho.Teste;
 import me.diego.botzinho.annotations.CommandDescription;
 import me.diego.botzinho.annotations.CommandName;
+import me.diego.botzinho.annotations.DevCommand;
 import me.diego.botzinho.commands.Command;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
+import me.diego.botzinho.config.ConfigManager;
+import net.dv8tion.jda.api.entities.Guild;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Set;
 
-public class CommandHandler extends ListenerAdapter {
-    private final HashMap<String, Command> commands = new HashMap<>();
+import static me.diego.botzinho.Botzinho.jda;
 
+public class CommandHandler {
+    private final HashMap<String, Command> commands = new HashMap<>();
     public final HashMap<String, Command> getCommands() {
         return commands;
     }
 
     private static CommandHandler instance;
-
     public static CommandHandler getInstance() {
         if (instance == null) instance = new CommandHandler();
         return instance;
     }
 
-    private static final String prefix = "!";
-
-    public void init() {
-        registerCommand();
-    }
-
-    @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String commandRaw = event.getMessage().getContentRaw();
-        String[] args = commandRaw.split(" ");
-        String cmdUsed = args[0].replace(prefix, "");
-
-        if (event.getAuthor().isBot() ||
-                !commandRaw.startsWith(prefix)) return;
-
-        Command command = commands.get(cmdUsed);
-
-        if (command == null) return;
-
-        command.handle(event);
-    }
-
     public void registerCommand() {
-        Reflections reflections = new Reflections(Teste.class.getPackage().getName() + ".commands");
+        Reflections reflections = new Reflections(Command.class.getPackage().getName());
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
         for (Class<? extends Command> claz : classes) {
@@ -65,7 +43,17 @@ public class CommandHandler extends ListenerAdapter {
                 String commandDescription = claz.getAnnotation(CommandDescription.class).value();
                 command.setDescription(commandDescription);
 
+                if (claz.getAnnotation(DevCommand.class) != null) {
+                    command.setDevCommand();
+                }
+
                 classes.forEach(e -> commands.put(commandName, command));
+
+                if(command.isDevCommand()) {
+                    Guild testServer = jda.getGuildById(ConfigManager.getInstance().getDevServerId());
+                    if(testServer == null) return;
+                    testServer.upsertCommand(commandName, commandDescription).queue();
+                }
             } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                      InvocationTargetException e) {
                 e.printStackTrace();

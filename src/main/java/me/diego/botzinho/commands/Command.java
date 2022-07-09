@@ -1,11 +1,14 @@
 package me.diego.botzinho.commands;
 
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public abstract class Command {
-    public abstract void handle(MessageReceivedEvent event);
+    public abstract void messageHandle(MessageReceivedEvent event);
+    public abstract void slashHandle(SlashCommandInteractionEvent event);
     private String description;
     private String group;
+    private boolean devCommand = false;
 
     public String getDescription() {
         return description;
@@ -21,5 +24,13 @@ public abstract class Command {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public boolean isDevCommand() {
+        return devCommand;
+    }
+
+    public void setDevCommand() {
+        this.devCommand = true;
     }
 }
