@@ -5,11 +5,13 @@ import me.diego.botzinho.annotations.CommandDescription;
 import me.diego.botzinho.annotations.CommandName;
 import me.diego.botzinho.annotations.DevCommand;
 import me.diego.botzinho.commands.Command;
-import me.diego.botzinho.commands.handler.CommandHandler;
+import me.diego.botzinho.handler.CommandHandler;
 import me.diego.botzinho.config.ConfigManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.apache.commons.text.CaseUtils;
@@ -20,12 +22,14 @@ import java.util.List;
 
 @CommandName("help")
 @CommandDescription("return all commands and descriptions")
-@DevCommand
-public class Help extends Command {
+public final class Help extends Command {
     private final HashMap<String, Command> commands = CommandHandler.getInstance().getCommands();
     private final String prefix = ConfigManager.getInstance().getPrefix();
     private final HashMap<String, List<String>> groups = new HashMap<>();
 
+    public List<OptionData> getOptions() {
+        return List.of();
+    }
     @Override
     public void messageHandle(MessageReceivedEvent event) {
         EmbedBuilder eb = commandResponse();

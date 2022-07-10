@@ -1,7 +1,7 @@
 package me.diego.botzinho;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import me.diego.botzinho.commands.handler.EventHandler;
+import me.diego.botzinho.handler.EventHandler;
 import me.diego.botzinho.config.ConfigManager;
 import me.diego.botzinho.debug.Guilds;
 import net.dv8tion.jda.api.JDA;

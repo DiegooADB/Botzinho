@@ -2,6 +2,9 @@ package me.diego.botzinho.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+
+import java.util.List;
 
 public abstract class Command {
     public abstract void messageHandle(MessageReceivedEvent event);
@@ -9,6 +12,7 @@ public abstract class Command {
     private String description;
     private String group;
     private boolean devCommand = false;
+    private final List<OptionData> getOptions = List.of();
 
     public String getDescription() {
         return description;
@@ -32,5 +36,9 @@ public abstract class Command {
 
     public void setDevCommand() {
         this.devCommand = true;
+    }
+
+    public List<OptionData> getOptions() {
+        return getOptions;
     }
 }

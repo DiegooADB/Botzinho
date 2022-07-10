@@ -1,4 +1,4 @@
-package me.diego.botzinho.commands.handler;
+package me.diego.botzinho.handler;
 
 import me.diego.botzinho.Botzinho;
 import me.diego.botzinho.commands.Command;

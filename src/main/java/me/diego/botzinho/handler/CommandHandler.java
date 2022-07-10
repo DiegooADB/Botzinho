@@ -1,12 +1,14 @@
-package me.diego.botzinho.commands.handler;
+package me.diego.botzinho.handler;
 
-import me.diego.botzinho.Teste;
 import me.diego.botzinho.annotations.CommandDescription;
 import me.diego.botzinho.annotations.CommandName;
 import me.diego.botzinho.annotations.DevCommand;
 import me.diego.botzinho.commands.Command;
 import me.diego.botzinho.config.ConfigManager;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,11 +19,13 @@ import static me.diego.botzinho.Botzinho.jda;
 
 public class CommandHandler {
     private final HashMap<String, Command> commands = new HashMap<>();
+
     public final HashMap<String, Command> getCommands() {
         return commands;
     }
 
     private static CommandHandler instance;
+
     public static CommandHandler getInstance() {
         if (instance == null) instance = new CommandHandler();
         return instance;
@@ -49,10 +53,24 @@ public class CommandHandler {
 
                 classes.forEach(e -> commands.put(commandName, command));
 
-                if(command.isDevCommand()) {
+                if (ConfigManager.getInstance().isOnDevMode()) {
                     Guild testServer = jda.getGuildById(ConfigManager.getInstance().getDevServerId());
-                    if(testServer == null) return;
-                    testServer.upsertCommand(commandName, commandDescription).queue();
+                    if (testServer == null) return;
+                    CommandCreateAction commandCreateAction = testServer.upsertCommand(commandName, commandDescription);
+                    if (command.getOptions().size() > 0) {
+                        command.getOptions().forEach(data -> {
+                            commandCreateAction.addOption(
+                                    data.getType(),
+                                    data.getName(),
+                                    data.getDescription(),
+                                    data.isRequired(),
+                                    data.isAutoComplete()).queue();
+                        });
+                    } else {
+                        testServer.upsertCommand(commandName, commandDescription).queue();
+                    }
+                } else {
+                    jda.upsertCommand(commandName, commandDescription).queue();
                 }
             } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                      InvocationTargetException e) {

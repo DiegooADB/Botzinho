@@ -18,25 +18,34 @@ public class ConfigManager {
     }
 
     private String prefix = "!";
-    private Boolean debug;
-    private Long devServerId;
+    private boolean debug = false;
+    private boolean devMode = false;
+    private Long devServerId = null;
 
     public String getPrefix() {
         return prefix;
     }
+
     public boolean isOnDebugMode() {
         return debug;
     }
+
+    public boolean isOnDevMode() {
+        return devMode;
+    }
+
     public Long getDevServerId() {
         return devServerId;
     }
+
 
     private void loadConfig() throws IOException, ParseException {
         File file = new File("src/main/resources/config.json");
         JSONObject json = (JSONObject) new JSONParser().parse(new FileReader(file));
 
         prefix = (String) json.get("prefix");
-        debug = (Boolean) json.get("debug");
+        debug = (boolean) json.get("debug");
+        devMode = (boolean) json.get("devMode");
         devServerId = (Long) json.get("devServerId");
     }
 
