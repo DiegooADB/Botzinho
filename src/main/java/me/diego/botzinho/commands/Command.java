@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Command {
@@ -12,7 +13,8 @@ public abstract class Command {
     private String description;
     private String group;
     private boolean devCommand = false;
-    private final List<OptionData> getOptions = List.of();
+    private final List<OptionData> options = List.of();
+    private final List<String> aliases = new ArrayList<>();
 
     public String getDescription() {
         return description;
@@ -39,6 +41,15 @@ public abstract class Command {
     }
 
     public List<OptionData> getOptions() {
-        return getOptions;
+        return options;
     }
+
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    public void addAliases(String aliasesName) {
+        aliases.add(aliasesName);
+    }
+
 }

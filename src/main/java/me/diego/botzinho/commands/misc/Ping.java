@@ -1,6 +1,7 @@
 package me.diego.botzinho.commands.misc;
 
 import me.diego.botzinho.Botzinho;
+import me.diego.botzinho.annotations.Aliases;
 import me.diego.botzinho.annotations.CommandDescription;
 import me.diego.botzinho.annotations.CommandName;
 import me.diego.botzinho.commands.Command;

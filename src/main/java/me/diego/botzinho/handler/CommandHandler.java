@@ -1,13 +1,12 @@
 package me.diego.botzinho.handler;
 
+import me.diego.botzinho.annotations.Aliases;
 import me.diego.botzinho.annotations.CommandDescription;
 import me.diego.botzinho.annotations.CommandName;
 import me.diego.botzinho.annotations.DevCommand;
 import me.diego.botzinho.commands.Command;
 import me.diego.botzinho.config.ConfigManager;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 import org.reflections.Reflections;
 
@@ -49,6 +48,12 @@ public class CommandHandler {
 
                 if (claz.getAnnotation(DevCommand.class) != null) {
                     command.setDevCommand();
+                }
+
+                if (claz.getAnnotation(Aliases.class) != null) {
+                    for (String aliase : claz.getAnnotation(Aliases.class).value()) {
+                        command.addAliases(aliase);
+                    }
                 }
 
                 classes.forEach(e -> commands.put(commandName, command));
