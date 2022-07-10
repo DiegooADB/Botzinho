@@ -23,7 +23,7 @@ import java.util.StringJoiner;
 
 @CommandName("help")
 @CommandDescription("Provides you with the commands list.\n" +
-        "Do p!help <command> for extended command info.")
+        "Do !help <command> for extended command info.")
 @Aliases({"cmds", "commands"})
 public final class Help extends Command {
     private final HashMap<String, Command> commands = CommandHandler.getInstance().getCommands();
@@ -50,7 +50,7 @@ public final class Help extends Command {
     @Override
     public void slashHandle(SlashCommandInteractionEvent event) {
         EmbedBuilder eb = response();
-        event.deferReply().queue();
+        event.deferReply(true).queue();
         event.getHook().sendMessageEmbeds(eb.build()).addActionRow(getButtons()).queue();
     }
 

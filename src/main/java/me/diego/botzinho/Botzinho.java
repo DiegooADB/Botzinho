@@ -7,14 +7,15 @@ import me.diego.botzinho.debug.Guilds;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.json.simple.parser.ParseException;
+import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 public class Botzinho {
     public static JDA jda;
-    public static final Logger logger = Logger.getLogger("Botzinho");
+    public static final Logger logger = LoggerFactory.getLogger(Botzinho.class);
 
     public Botzinho() throws IOException, ParseException, LoginException, InterruptedException {
         Dotenv dotenv = null;
